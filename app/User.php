@@ -10,30 +10,30 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    //region props
     protected $fillable = [
-        'name', 'email', 'password',
+        'username','name','mobile', 'bio', 'password',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
+
+
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'code',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
+
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'code_expiration' => 'datetime',
     ];
+
+    //endregion props
+
+    //region relations
+
+    public function chats()
+    {
+        return $this->hasMany(Chat::class,'creator_id','id');
+    }
+
+    //endregion relations
 }
