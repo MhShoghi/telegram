@@ -3,10 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Chat extends Model
 {
 
+    use SoftDeletes;
     //region chat type constants
     const CHAT_TYPE_PRIVATE = 'private';
     const CHAT_TYPE_GROUP = 'group';
@@ -20,6 +22,10 @@ class Chat extends Model
     //endregion props
 
     // region relations
+    /**
+     * connect creator to User::Class
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function creator()
     {
         return $this->belongsTo(User::class,'creator_id','id');
